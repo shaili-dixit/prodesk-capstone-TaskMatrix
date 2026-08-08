@@ -1,16 +1,80 @@
-# React + Vite
+# TaskMatrix
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+TaskMatrix is an Agile project management platform designed to help teams organize projects, manage tasks, track progress, and collaborate through a centralized workspace.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Designated Track
 
-## React Compiler
+Agile Project Management
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+### Frontend
+- React
+- React Router
+- Redux Toolkit
+- CSS / Tailwind CSS
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MongoDB
+- Mongoose
+
+### Authentication
+- JWT
+- bcrypt
+
+### Development Tools
+- Git
+- GitHub
+- Postman
+- VS Code
+
+## Core Features
+
+### P0 — Mandatory
+
+- User authentication
+- Project creation and management
+- Task creation, editing, and deletion
+- Task assignment
+- Kanban board
+- Task status management
+- Project dashboard
+
+### P1 — Priority
+
+- Team management
+- Task search and filtering
+- Task details
+- Project analytics
+- Due-date management
+
+### P2 — Stretch
+
+- Notifications
+- Activity history
+- Role-based access control
+- Real-time updates
+- Dark mode
+- Advanced analytics
+
+## Architecture
+
+Architecture diagrams and system design documentation will be added during the design phase.
+
+## UI/UX
+
+Figma wireframes will be added after the initial product requirements are finalized.
+
+## API Documentation
+
+Mock API endpoints will be documented as part of the system architecture.
+
+## Project Status
+
+Planning and architecture phase.
