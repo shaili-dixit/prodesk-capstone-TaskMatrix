@@ -195,6 +195,8 @@ https://www.figma.com/design/gwtIKDMzVDS2JLTByDc71i/TaskMatrix-%E2%80%94-Agile-P
 
 The ERD defines the planned MongoDB data model and relationships between the major entities of the TaskMatrix system.
 
+
+
 #### Frontend State Tree
 
 The State Tree defines the planned global frontend state structure and the responsibilities of the different application state domains.

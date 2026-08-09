@@ -19,14 +19,18 @@ function ProjectDetails() {
     const { tasks, addTask } = useTasks();
 
 
-    // Find current project
+    // =========================
+    // FIND CURRENT PROJECT
+    // =========================
 
     const project = projects.find(
         (item) => item.id === Number(projectId)
     );
 
 
-    // Form state
+    // =========================
+    // FORM STATE
+    // =========================
 
     const [showForm, setShowForm] = useState(false);
 
@@ -35,31 +39,9 @@ function ProjectDetails() {
     const [priority, setPriority] = useState("Medium");
 
 
-    // Add task
-
-    const handleAddTask = (event) => {
-
-        event.preventDefault();
-
-        if (!taskTitle.trim()) {
-            return;
-        }
-
-        addTask({
-            title: taskTitle.trim(),
-            projectId: project.id,
-            priority: priority,
-            completed: false,
-            assignedTo: "You",
-        });
-
-        setTaskTitle("");
-        setPriority("Medium");
-        setShowForm(false);
-    };
-
-
-    // Project not found
+    // =========================
+    // PROJECT NOT FOUND
+    // =========================
 
     if (!project) {
 
@@ -103,16 +85,61 @@ function ProjectDetails() {
     }
 
 
-    // Project tasks
+    // =========================
+    // PROJECT TASKS
+    // =========================
 
     const projectTasks = tasks.filter(
         (task) => task.projectId === project.id
     );
 
 
+    // =========================
+    // DYNAMIC PROGRESS
+    // =========================
+
     const completedTasks = projectTasks.filter(
         (task) => task.completed
     ).length;
+
+
+    const pendingTasks = projectTasks.filter(
+        (task) => !task.completed
+    ).length;
+
+
+    const projectProgress =
+        projectTasks.length === 0
+            ? 0
+            : Math.round(
+                (completedTasks / projectTasks.length) * 100
+            );
+
+
+    // =========================
+    // ADD TASK
+    // =========================
+
+    const handleAddTask = (event) => {
+
+        event.preventDefault();
+
+        if (!taskTitle.trim()) {
+            return;
+        }
+
+        addTask({
+            title: taskTitle.trim(),
+            projectId: project.id,
+            priority: priority,
+            completed: false,
+            assignedTo: "You",
+        });
+
+        setTaskTitle("");
+        setPriority("Medium");
+        setShowForm(false);
+    };
 
 
     return (
@@ -127,7 +154,9 @@ function ProjectDetails() {
                 <main className="details-main">
 
 
-                    {/* Back */}
+                    {/* =========================
+                        BACK BUTTON
+                    ========================= */}
 
                     <Link
                         to="/projects"
@@ -137,7 +166,9 @@ function ProjectDetails() {
                     </Link>
 
 
-                    {/* Project Header */}
+                    {/* =========================
+                        PROJECT HEADER
+                    ========================= */}
 
                     <section className="project-details-header">
 
@@ -192,7 +223,9 @@ function ProjectDetails() {
                     </section>
 
 
-                    {/* Add Task Form */}
+                    {/* =========================
+                        ADD TASK FORM
+                    ========================= */}
 
                     {showForm && (
 
@@ -287,9 +320,14 @@ function ProjectDetails() {
                     )}
 
 
-                    {/* Statistics */}
+                    {/* =========================
+                        PROJECT STATISTICS
+                    ========================= */}
 
                     <section className="details-stats">
+
+
+                        {/* PROGRESS */}
 
                         <div className="details-stat">
 
@@ -298,11 +336,13 @@ function ProjectDetails() {
                             </span>
 
                             <strong>
-                                {project.progress}%
+                                {projectProgress}%
                             </strong>
 
                         </div>
 
+
+                        {/* MEMBERS */}
 
                         <div className="details-stat">
 
@@ -317,6 +357,8 @@ function ProjectDetails() {
                         </div>
 
 
+                        {/* TOTAL TASKS */}
+
                         <div className="details-stat">
 
                             <span>
@@ -329,6 +371,8 @@ function ProjectDetails() {
 
                         </div>
 
+
+                        {/* COMPLETED */}
 
                         <div className="details-stat">
 
@@ -345,12 +389,16 @@ function ProjectDetails() {
                     </section>
 
 
-                    {/* Content */}
+                    {/* =========================
+                        MAIN CONTENT
+                    ========================= */}
 
                     <section className="details-content">
 
 
-                        {/* Progress */}
+                        {/* =========================
+                            PROJECT PROGRESS
+                        ========================= */}
 
                         <div className="details-panel">
 
@@ -363,13 +411,13 @@ function ProjectDetails() {
                                     </h2>
 
                                     <p>
-                                        Current project completion
+                                        Based on completed project tasks
                                     </p>
 
                                 </div>
 
                                 <strong>
-                                    {project.progress}%
+                                    {projectProgress}%
                                 </strong>
 
                             </div>
@@ -380,7 +428,7 @@ function ProjectDetails() {
                                 <div
                                     className="large-progress-fill"
                                     style={{
-                                        width: `${project.progress}%`
+                                        width: `${projectProgress}%`
                                     }}
                                 />
 
@@ -389,7 +437,9 @@ function ProjectDetails() {
                         </div>
 
 
-                        {/* Tasks */}
+                        {/* =========================
+                            PROJECT TASKS
+                        ========================= */}
 
                         <div className="details-panel">
 
@@ -435,6 +485,74 @@ function ProjectDetails() {
                                     </div>
 
                                 )}
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    {/* =========================
+                        TASK SUMMARY
+                    ========================= */}
+
+                    <section className="details-panel task-overview-panel">
+
+                        <div className="panel-heading">
+
+                            <div>
+
+                                <h2>
+                                    Task Overview
+                                </h2>
+
+                                <p>
+                                    Current project task status
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div className="task-overview">
+
+                            <div className="task-overview-item">
+
+                                <span>
+                                    Total
+                                </span>
+
+                                <strong>
+                                    {projectTasks.length}
+                                </strong>
+
+                            </div>
+
+
+                            <div className="task-overview-item">
+
+                                <span>
+                                    Completed
+                                </span>
+
+                                <strong>
+                                    {completedTasks}
+                                </strong>
+
+                            </div>
+
+
+                            <div className="task-overview-item">
+
+                                <span>
+                                    Pending
+                                </span>
+
+                                <strong>
+                                    {pendingTasks}
+                                </strong>
 
                             </div>
 
