@@ -1,0 +1,308 @@
+.projects-page {
+    min-height: 100vh;
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.projects-layout {
+    display: flex;
+}
+
+.projects-main {
+    flex: 1;
+    min-width: 0;
+    padding: 32px;
+}
+
+
+/* Header */
+
+.projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.projects-label {
+    margin-bottom: 6px;
+
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.projects-header h1 {
+    margin-bottom: 8px;
+    font-size: 32px;
+}
+
+.projects-header p:last-child {
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* Toolbar */
+
+.projects-toolbar {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    width: 350px;
+
+    padding: 11px 14px;
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.search-box span {
+    color: #64748b;
+    font-size: 20px;
+}
+
+.search-box input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+}
+
+.project-filter {
+    padding: 10px 14px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+
+    background: white;
+
+    color: #475569;
+
+    cursor: pointer;
+}
+
+
+/* Project Grid */
+
+.projects-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* Project Card */
+
+.project-card {
+    padding: 22px;
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.04);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.project-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.project-card-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+
+    background: #dbeafe;
+    color: #2563eb;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.project-status {
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.project-status.active {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.project-status.progress {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.project-card h2 {
+    margin-bottom: 8px;
+
+    font-size: 18px;
+}
+
+.project-description {
+    min-height: 42px;
+
+    margin-bottom: 22px;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* Progress */
+
+.project-progress {
+    margin-bottom: 22px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.progress-header strong {
+    color: #0f172a;
+}
+
+.progress-bar {
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: #e2e8f0;
+}
+
+.progress-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: #2563eb;
+}
+
+
+/* Footer */
+
+.project-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 17px;
+
+    border-top: 1px solid #f1f5f9;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.project-link {
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Responsive */
+
+@media (max-width: 1100px) {
+
+    .projects-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+
+    .projects-main {
+        padding: 20px;
+    }
+
+    .projects-header {
+        flex-direction: column;
+    }
+
+    .projects-toolbar {
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .project-filter {
+        width: 100%;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
