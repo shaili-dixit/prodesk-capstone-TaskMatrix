@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
@@ -5,7 +6,36 @@ import { useProjects } from "../context/ProjectContext";
 import "./Projects.css";
 
 function Projects() {
-    const { projects } = useProjects();
+    const { projects, addProject } = useProjects();
+
+    const [showForm, setShowForm] = useState(false);
+
+    const [projectName, setProjectName] = useState("");
+    const [description, setDescription] = useState("");
+    const [status, setStatus] = useState("Active");
+    const [members, setMembers] = useState(1);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (!projectName.trim() || !description.trim()) {
+            return;
+        }
+
+        addProject({
+            name: projectName.trim(),
+            description: description.trim(),
+            status,
+            progress: 0,
+            members: Number(members),
+        });
+
+        setProjectName("");
+        setDescription("");
+        setStatus("Active");
+        setMembers(1);
+        setShowForm(false);
+    };
 
     return (
         <div className="projects-page">
@@ -33,25 +63,169 @@ function Projects() {
                             </p>
                         </div>
 
-                        <button className="primary-button">
-                            + New Project
+                        <button
+                            className="primary-button"
+                            onClick={() => setShowForm(!showForm)}
+                        >
+                            {showForm
+                                ? "Cancel"
+                                : "+ New Project"}
                         </button>
 
                     </section>
 
 
+                    {/* CREATE PROJECT FORM */}
+
+                    {showForm && (
+                        <section className="create-project-panel">
+
+                            <div className="panel-header">
+
+                                <div>
+                                    <h2>
+                                        Create New Project
+                                    </h2>
+
+                                    <p>
+                                        Add a new project to your workspace.
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                            <form
+                                className="project-form"
+                                onSubmit={handleSubmit}
+                            >
+
+                                <div className="project-form-group">
+
+                                    <label htmlFor="projectName">
+                                        Project Name
+                                    </label>
+
+                                    <input
+                                        id="projectName"
+                                        type="text"
+                                        placeholder="Enter project name"
+                                        value={projectName}
+                                        onChange={(event) =>
+                                            setProjectName(
+                                                event.target.value
+                                            )
+                                        }
+                                        required
+                                    />
+
+                                </div>
+
+
+                                <div className="project-form-group">
+
+                                    <label htmlFor="projectDescription">
+                                        Description
+                                    </label>
+
+                                    <textarea
+                                        id="projectDescription"
+                                        placeholder="Describe your project"
+                                        value={description}
+                                        onChange={(event) =>
+                                            setDescription(
+                                                event.target.value
+                                            )
+                                        }
+                                        required
+                                    />
+
+                                </div>
+
+
+                                <div className="project-form-row">
+
+                                    <div className="project-form-group">
+
+                                        <label htmlFor="projectStatus">
+                                            Status
+                                        </label>
+
+                                        <select
+                                            id="projectStatus"
+                                            value={status}
+                                            onChange={(event) =>
+                                                setStatus(
+                                                    event.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="Active">
+                                                Active
+                                            </option>
+
+                                            <option value="In Progress">
+                                                In Progress
+                                            </option>
+                                        </select>
+
+                                    </div>
+
+
+                                    <div className="project-form-group">
+
+                                        <label htmlFor="projectMembers">
+                                            Team Members
+                                        </label>
+
+                                        <input
+                                            id="projectMembers"
+                                            type="number"
+                                            min="1"
+                                            value={members}
+                                            onChange={(event) =>
+                                                setMembers(
+                                                    event.target.value
+                                                )
+                                            }
+                                        />
+
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    type="submit"
+                                    className="save-project-button"
+                                >
+                                    Create Project
+                                </button>
+
+                            </form>
+
+                        </section>
+                    )}
+
+
+                    {/* PROJECT TOOLBAR */}
+
                     <section className="projects-toolbar">
 
                         <div className="search-box">
+
                             <span>⌕</span>
 
                             <input
                                 type="text"
                                 placeholder="Search projects..."
                             />
+
                         </div>
 
+
                         <select className="project-filter">
+
                             <option value="all">
                                 All Projects
                             </option>
@@ -63,10 +237,13 @@ function Projects() {
                             <option value="progress">
                                 In Progress
                             </option>
+
                         </select>
 
                     </section>
 
+
+                    {/* PROJECT GRID */}
 
                     <section className="projects-grid">
 
@@ -86,11 +263,10 @@ function Projects() {
                                     </div>
 
                                     <span
-                                        className={`project-status ${
-                                            project.status === "Active"
+                                        className={`project-status ${project.status === "Active"
                                                 ? "active"
                                                 : "progress"
-                                        }`}
+                                            }`}
                                     >
                                         {project.status}
                                     </span>
@@ -147,7 +323,6 @@ function Projects() {
                                     >
                                         View Project →
                                     </Link>
-
                                 </div>
 
                             </article>

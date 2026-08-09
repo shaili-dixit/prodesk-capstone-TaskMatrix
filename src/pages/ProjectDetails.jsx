@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import TaskCard from "../components/TaskCard";
+
 import { useProjects } from "../context/ProjectContext";
 import { useTasks } from "../context/TaskContext";
+
 import "./ProjectDetails.css";
 
 function ProjectDetails() {
@@ -11,15 +16,53 @@ function ProjectDetails() {
 
     const { projects } = useProjects();
 
-    const { tasks } = useTasks();
+    const { tasks, addTask } = useTasks();
 
+
+    // Find current project
 
     const project = projects.find(
         (item) => item.id === Number(projectId)
     );
 
 
+    // Form state
+
+    const [showForm, setShowForm] = useState(false);
+
+    const [taskTitle, setTaskTitle] = useState("");
+
+    const [priority, setPriority] = useState("Medium");
+
+
+    // Add task
+
+    const handleAddTask = (event) => {
+
+        event.preventDefault();
+
+        if (!taskTitle.trim()) {
+            return;
+        }
+
+        addTask({
+            title: taskTitle.trim(),
+            projectId: project.id,
+            priority: priority,
+            completed: false,
+            assignedTo: "You",
+        });
+
+        setTaskTitle("");
+        setPriority("Medium");
+        setShowForm(false);
+    };
+
+
+    // Project not found
+
     if (!project) {
+
         return (
             <div className="details-page">
 
@@ -60,6 +103,8 @@ function ProjectDetails() {
     }
 
 
+    // Project tasks
+
     const projectTasks = tasks.filter(
         (task) => task.projectId === project.id
     );
@@ -67,11 +112,6 @@ function ProjectDetails() {
 
     const completedTasks = projectTasks.filter(
         (task) => task.completed
-    ).length;
-
-
-    const pendingTasks = projectTasks.filter(
-        (task) => !task.completed
     ).length;
 
 
@@ -138,11 +178,113 @@ function ProjectDetails() {
                         </div>
 
 
-                        <button className="primary-button">
-                            + Add Task
+                        <button
+                            className="primary-button"
+                            onClick={() =>
+                                setShowForm(!showForm)
+                            }
+                        >
+                            {showForm
+                                ? "Cancel"
+                                : "+ Add Task"}
                         </button>
 
                     </section>
+
+
+                    {/* Add Task Form */}
+
+                    {showForm && (
+
+                        <section className="add-task-panel">
+
+                            <div className="panel-heading">
+
+                                <div>
+
+                                    <h2>
+                                        Add New Task
+                                    </h2>
+
+                                    <p>
+                                        Create a task for this project.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <form
+                                className="task-form"
+                                onSubmit={handleAddTask}
+                            >
+
+                                <div className="task-form-group">
+
+                                    <label htmlFor="taskTitle">
+                                        Task Title
+                                    </label>
+
+                                    <input
+                                        id="taskTitle"
+                                        type="text"
+                                        placeholder="Enter task title"
+                                        value={taskTitle}
+                                        onChange={(event) =>
+                                            setTaskTitle(
+                                                event.target.value
+                                            )
+                                        }
+                                    />
+
+                                </div>
+
+
+                                <div className="task-form-group">
+
+                                    <label htmlFor="taskPriority">
+                                        Priority
+                                    </label>
+
+                                    <select
+                                        id="taskPriority"
+                                        value={priority}
+                                        onChange={(event) =>
+                                            setPriority(
+                                                event.target.value
+                                            )
+                                        }
+                                    >
+
+                                        <option value="Low">
+                                            Low
+                                        </option>
+
+                                        <option value="Medium">
+                                            Medium
+                                        </option>
+
+                                        <option value="High">
+                                            High
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <button
+                                    type="submit"
+                                    className="save-task-button"
+                                >
+                                    Add Task
+                                </button>
+
+                            </form>
+
+                        </section>
+                    )}
 
 
                     {/* Statistics */}
@@ -208,7 +350,7 @@ function ProjectDetails() {
                     <section className="details-content">
 
 
-                        {/* Progress Panel */}
+                        {/* Progress */}
 
                         <div className="details-panel">
 
@@ -247,7 +389,7 @@ function ProjectDetails() {
                         </div>
 
 
-                        {/* Tasks Panel */}
+                        {/* Tasks */}
 
                         <div className="details-panel">
 
@@ -278,44 +420,10 @@ function ProjectDetails() {
 
                                     projectTasks.map((task) => (
 
-                                        <div
-                                            className="details-task"
+                                        <TaskCard
                                             key={task.id}
-                                        >
-
-                                            <div className="task-check">
-                                                {task.completed
-                                                    ? "✓"
-                                                    : ""}
-                                            </div>
-
-
-                                            <div className="details-task-info">
-
-                                                <h3>
-                                                    {task.title}
-                                                </h3>
-
-                                                <p>
-                                                    Assigned to: {task.assignedTo}
-                                                </p>
-
-                                            </div>
-
-
-                                            <span
-                                                className={`priority ${
-                                                    task.priority === "High"
-                                                        ? "high"
-                                                        : task.priority === "Medium"
-                                                            ? "medium"
-                                                            : "low"
-                                                }`}
-                                            >
-                                                {task.priority}
-                                            </span>
-
-                                        </div>
+                                            task={task}
+                                        />
 
                                     ))
 
@@ -331,7 +439,6 @@ function ProjectDetails() {
                             </div>
 
                         </div>
-
 
                     </section>
 
