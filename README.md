@@ -242,69 +242,95 @@ These endpoints represent the intended backend contract and are included as part
 | DELETE | `/api/tasks/:id`                 | Delete a task                |
  
 ```
-### Application Views
+## Application Views
 
-#### Authentication
+### 1. Authentication Screen
 
-The authentication screen provides a user login interface and establishes the application's authentication state.
+The Authentication screen provides the entry point to the TaskMatrix application.
 
-#### Dashboard
+Users can:
 
-The dashboard provides an overview of:
+- Enter their email address
+- Enter their password
+- Sign in to the application
+- Access the protected workspace after successful authentication
 
--Active projects
--Total tasks
--Completed tasks
--Pending tasks
--Recent projects
--User tasks
+---
 
-#### Projects
+### 2. Main Dashboard
 
-The Projects view allows users to:
+The Dashboard provides a centralized overview of the user's workspace.
 
--View available projects
--Create new projects
--View project progress
--View team member count
--Navigate to project details
+It displays:
 
-#### Project Details
+- Active Projects
+- Total Tasks
+- Completed Tasks
+- Pending Tasks
+- Recent Projects
+- My Tasks
 
-The Project Details view provides:
+The dashboard also provides navigation to the main areas of the application through the global Navbar and Sidebar.
 
--Project information
--Project progress
--Team member information
--Project task count
--Completed task count
--Task creation
--Task completion
--Task deletion
--State Management Flow
--Authentication
+---
+
+### 3. Projects View
+
+The Projects view provides a centralized list of projects within the workspace.
+
+Users can:
+
+- View all available projects
+- Create a new project
+- View project status
+- View project progress
+- View team member count
+- Open a specific project to access its details
+
+---
+
+### 4. Project Details View
+
+The Project Details view provides detailed information about an individual project.
+
+Users can:
+
+- View project information
+- View project progress
+- View team member count
+- View total project tasks
+- View completed tasks
+- Add new tasks
+- Mark tasks as completed
+- Delete tasks
+
+The view uses dynamic routing through:
+
+`/projects/:projectId`
+
+allowing different projects to be displayed through a single reusable Project Details page.
 
 ### Project Status
 #### Frontend MVP — Implemented
 
 Current implementation includes:
 
--Authentication flow
--Protected routes
--Dashboard
--Project management
--Dynamic project details
--Task management
--Global project state
--Global task state
--Responsive UI
--React Router based navigation
--Design & Architecture — Completed
--Product Requirements Documentation
--Figma wireframes
--Entity Relationship Diagram
--Frontend State Tree Diagram
--Mock API endpoint documentation
+- Authentication flow
+- Protected routes
+- Dashboard
+- Project management
+- Dynamic project details
+- Task management
+- Global project state
+- Global task state
+- Responsive UI
+- React Router based navigation
+- Design & Architecture — Completed
+- Product Requirements Documentation
+- Figma wireframes
+- Entity Relationship Diagram
+- Frontend State Tree Diagram
+- Mock API endpoint documentation
 
 ### Future Development
 
