@@ -8,12 +8,6 @@ The application provides a structured workspace where users can authenticate, vi
 
 ---
 
-## Designated Track
-
-**Agile Project Management**
-
----
-
 ## Tech Stack
 
 ### Frontend
@@ -114,6 +108,8 @@ The application is organized into:
 
 ### Project Structure
 
+```
+
 src/
 │
 ├── components/
@@ -146,6 +142,8 @@ src/
 ├── App.css
 └── main.jsx
 
+```
+
 ### Routing Architecture
 
 TaskMatrix uses react-router-dom for client-side navigation.
@@ -161,6 +159,8 @@ TaskMatrix uses react-router-dom for client-side navigation.
 ```
 ### Route Flow
 
+```
+
 /login
    |
    | Successful Login
@@ -173,14 +173,16 @@ TaskMatrix uses react-router-dom for client-side navigation.
    |
    └── Other protected workspace routes
 
+```
+
 ### UI/UX Design
 
 The TaskMatrix interface was designed in Figma before implementation.
 The wireframes cover the following core views:
 
-Authentication Screen
-Main Dashboard
-Project Details View
+-Authentication Screen
+-Main Dashboard
+-Project Details View
 
 ### Figma Design
 
